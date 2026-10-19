@@ -1,6 +1,6 @@
 const SB="https://elmxwpwhyewgjlvoadtb.supabase.co",KEY="sb_publishable_yUCov2V1dKGEc-rBwt6v2A_dBkHEiYd";
 // STEP 2: replace this after deploying worker.js:
-const WORKER_URL="PASTE_YOUR_WORKER_URL_HERE";
+const WORKER_URL="https://ukim-pharmacy-calendar.2k8hy9m675.workers.dev";
 let programs=[],subjects=[];const $=x=>document.getElementById(x);
 async function get(t,q){let r=await fetch(`${SB}/rest/v1/${t}?${q}`,{headers:{apikey:KEY,Authorization:`Bearer ${KEY}`}});if(!r.ok)throw Error(await r.text());return r.json()}
 async function init(){try{programs=await get("programs","select=id,name&order=name.asc&limit=1000");subjects=await get("subjects","select=id,name,semester,program_id&order=semester.asc,name.asc&limit=5000");$("program").innerHTML=programs.map(p=>`<option value="${p.id}">${p.name}</option>`).join("");let p=programs.find(x=>x.name.toLowerCase().includes("магистер по фармација 2021"));if(p)$("program").value=p.id;semesters();render()}catch(e){$("status").textContent=e.message}}
